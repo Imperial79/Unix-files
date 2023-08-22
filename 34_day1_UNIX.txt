@@ -1,0 +1,22 @@
+a. who -q
+b. tty
+c. date +%d/%m/%Y
+d. uname -orm
+e. tput cup 12 25
+f. echo "ibase=2; 1101001"|bc
+g. who -aH
+h. man echo
+i. echo "scale=3; 19/3"|bc
+j. mkdir mca && mkdir mca/cprogs && mkdir mca/projects
+k. cd projects
+l. nano biodata.txt
+m. cp biodata.txt ../cprogs/text1.txt
+n. mv text1.txt ../projects/
+o. cat biodata.txt text1.txt > datatext.txt
+p. mv text1.txt newtext.txt
+q. ls -d a* b* m*
+r. ls *[0-9].txt
+s. ls ?[0-9]*.txt
+t. chmod 777 text1.txt
+
+

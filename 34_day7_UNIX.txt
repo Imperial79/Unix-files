@@ -1,0 +1,93 @@
+Q1. Write a shell script, which gets executed the moment a user logs in. It should display the message 
+“GOOD MORNING” or “GOOD AFTERNOON” or “GOOD EVENING” depending upon the time at 
+which the user logs in.
+
+Solution:
+
+#!/bin/bash
+
+hour=`date +%H`
+
+if [ $hour -lt 12 ]
+then
+        echo "Good Morning"
+elif [ $hour -le 16 ]
+then
+        echo "Good Afternoon"
+elif [ $hour -le 20 ]
+then
+        echo "Good Evening"
+else
+        echo "Good Night"
+fi
+
+Q2. Write a shell script, which reports names and sizes of all files in a directory (directory should be 
+supplied as an argument to the shell script) whose size exceeds 100 bytes. The filenames should be 
+printed in decreasing order of their sizes. The total number of such files should also be reported. 
+
+Solution:
+#!/bin/bash
+
+echo "Enter path: "
+read path
+
+for i in $(find "$path" -depth);
+do
+        size=$(stat -c%s "$i")
+        if [ $size -gt 1000 ]
+        then
+                echo $i " - " $size
+        fi
+done
+
+Q3. Write a shell script to concatenate two files and count the number of characters, number of words and number of lines in the resultant file.
+
+Solution:
+
+echo -n "File 1: "
+read f1
+
+echo -n "File 2: "
+read f2
+
+$(cat "$f1" "$f2" > "merge.txt")
+
+t=($(wc "merge.txt"))
+
+echo "Characters: ${t[2]}"
+echo "Words: ${t[1]}"
+echo "Lines: ${t[0]}"
+
+Q4. Write a shell script which deletes all lines containing the word UNIX in the files supplied as arguments to this shell script.
+
+Solution:
+
+if [ $# -le 0 ]
+then
+    echo "No filename provided"
+else
+    echo "$(cat "$1")"
+    echo ""
+    $(echo -n "" > "$1_new.txt")
+    $(echo "$(sed '/UNIX/d' $1)" >> "$1_new.txt")
+    echo "$(cat "$1_new.txt")"
+fi
+
+Q5. Write a shell script which would receive a log name during execution, obtain information about it from password file and display this information on the screen in easily understandable format.
+
+Solution:
+
+echo -n "Enter a username: "
+read usr
+
+t=$(grep -w '/etc/passwd' -e $usr)
+t=($(echo "$t" | tr ':' ' '))
+
+echo -e "\nInformation: -"
+echo "Username: ${t[0]}"
+echo "Password: ${t[1]} (encrypted)"
+echo "User ID (UID): ${t[2]}"
+echo "Group ID (GID): ${t[3]}"
+echo "Comment: ${t[4]}"
+echo "Home directory: ${t[5]}"
+echo "Shell: ${t[6]}"

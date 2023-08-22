@@ -1,0 +1,107 @@
+DAY 4
+
+Q1. Write a shell script to find the factorial value of any integer entered through the keyboard.
+
+Solution:
+#!/bin/bash
+#factorial
+echo "Enter a number: "
+read n
+fact=1
+for(( i=1; i<=$n; i++ ))
+do
+        fact=$((fact * i))
+done
+echo "$n! = $fact"
+
+Q2. Write a shell script to generate all combinations of 1, 2 and 3.
+
+Solution:
+#!/bin/bash
+#Generate all combinations of 1, 2, 3
+
+for(( i=1; i<=3; i++ ))
+do
+        for(( j=1; j<=3; j++ ))
+        do
+                for(( k=1; k<=3; k++ ))
+                do
+                        if [ $i -ne $j -a $i -ne $k -a $j -ne $k ]; then
+                                printf "$i$j$k\n"
+                        fi
+                done
+        done
+done
+
+Q3. Write a shell script to print all prime numbers in a given range.
+
+Solution:
+#!/bin/bash
+#print prime numbers
+echo "Enter range to search for prime numbers: "
+read n
+for((i=2;i<=$n;i++))
+do
+        flag=0
+        x=$(($i/2))
+        j=2
+        while [ $j -le $x ]
+        do
+                y=$(($i%$j))
+                if [ $y -eq 0 ]
+                then
+                        flag=1
+                        break
+                fi
+                j=$(($j+1))
+        done
+        if [ $flag -eq 0 ]
+        then
+                echo "$i is prime"
+        fi
+done
+
+Q4. Write a shell script to calculate the sum of digits of any number entered through keyboard.
+
+Solution: 
+#!/bin/bash
+#sum of digits
+
+echo "Enter a number: "
+read n
+sum=0
+while [ $n -gt 0 ]
+do
+        mod=$((n%10))
+        sum=$((sum+mod))
+        n=$((n/10))
+done
+
+echo "Sum: $sum"
+
+Q5. Rajesh‟s basic salary (BASIC) is input through the keyboard. His dearness allowance (DA) is 52% of
+BASIC. House rent allowance (HRA) is 15% of BASIC. Contributory provident fund is 12% of
+(BASIC + DA). Write a shell script to calculate his gross salary and take home salary using the
+following formula:
+Gross salary = BASIC + DA + HRA
+Take home salary = Gross salary - (BASIC + DA) * 0.12
+
+Solution:
+#!/bin/bash
+#calculate gross salary
+
+echo "Enter the basic salary: "
+read basic
+da=$(($basic*52/100))
+hra=$(($basic*15/100))
+gross=$(($basic+$da+$hra))
+takeHome=$(($gross-$(($basic+$da))*12/100))
+
+echo "Gross Salary: $gross"
+echo "Take Home Salary: $takeHome"
+
+Q6. Develop a shell script which displays all files with all attributes those have been created or
+modified in the month of November.
+
+Solution:
+find * -type f -ls |grep 'Nov
